@@ -8,27 +8,28 @@
 using namespace std;
 
 int n = 0; // variable n sebagai banyak data yang telah tersimpan
-struct data
-{ // struktur data mahasiswa yg akan diinput
-
+struct data { // struktur data mahasiswa yg akan diinput
     int nim;
     char nama[20];
     char kom;
 };
+
 struct data maba[nmax]; // deklarasi variabel bertipe struct
 void tambah_data();     // prototype fungsi void
 void hapus_data();
 void tampilkan_data();
-main()
-{
+void update_data();
+
+int main() {
     int pil;
-menu:
+    menu:
     cout << " \t\t MENU \n";
     cout << "1. tambah data\n";
     cout << "2. hapus data \n";
     cout << "3. tampilkan data \n";
-    cout << "4. keluar \n";
-    cout << "\n Pilih menu (1/2/3/4) ? ";
+    cout << "4. update data \n";
+    cout << "5. keluar \n";
+    cout << "\n Pilih menu (1/2/3/4/5) ? ";
     cin >> pil;
     if (pil == 1)
         tambah_data();
@@ -37,6 +38,8 @@ menu:
     else if (pil == 3)
         tampilkan_data();
     else if (pil == 4)
+        update_data();
+    else if (pil == 5)
         exit(1); // atau bisa pakai return(0)
     else
     {
@@ -46,23 +49,19 @@ menu:
     getch();
 }
 
-void tambah_data()
-{
+void tambah_data() {
     if (n < nmax)
     {
-        cout << "nama : ";
-        cin >> maba[n].nama;
-        cout << "NIM : ";
-        cin >> maba[n].nim;
-        cout << "Kom : ";
-        cin >> maba[n].kom;
+        cout << "nama : "; cin >> maba[n].nama;
+        cout << "NIM  : "; cin >> maba[n].nim;
+        cout << "Kom  : "; cin >> maba[n].kom;
         n++;
     }
     else
         cout << "\n data telah melebihi...!!!\n maksimal data = " << nmax;
 }
-void hapus_data()
-{
+
+void hapus_data() {
     int x;
     cout << "pilih data yang akan dihapus (1 s.d. 5) : ";
     cin >> x;
@@ -81,8 +80,8 @@ void hapus_data()
     else
         cout << "\n data yang ingin dihapus tidak ada...!!!\n";
 }
-void tampilkan_data()
-{
+
+void tampilkan_data() {
     if (n == 0)
         cout << "Tidak ada data yang disimpan...!!!\n";
     else
@@ -96,4 +95,32 @@ void tampilkan_data()
             cout << endl;
         }
     }
+}
+
+void update_data() {
+    int pilihan, x;
+    cout << "pilih data yang akan diedit : ";
+    cin  >> x;
+    
+    if ((x <= n) && (x > 0)) {
+        cout << "1. Edit Nama\n";
+        cout << "2. Edit NIM\n";
+        cout << "3. Edit Kom\n";
+        cout << "4. Edit Nama, NIM, Kom\n";
+        cout << "Masukkan pilihan anda : "; cin >> pilihan;
+        
+        if (pilihan == 1){
+            cout << "nama : "; cin >> maba[x-1].nama;
+        } else if (pilihan == 2) {
+            cout << "NIM  : "; cin >> maba[x-1].nim;
+        } else if (pilihan == 3) {
+            cout << "Kom  : "; cin >> maba[x-1].kom;
+        } else if (pilihan == 4) {
+            cout << "nama : "; cin >> maba[x-1].nama;
+            cout << "NIM  : "; cin >> maba[x-1].nim;
+            cout << "Kom  : "; cin >> maba[x-1].kom;
+        } else 
+            cout << "Pilihan yang masukkan tidak tersedia\n";
+    } else 
+        cout << "Data yang mau anda edit tidak ada\n";  
 }
